@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="container p-4">
+        <div class="row">
+            <aside class="content-section col-md-3 border rounded-top">
+                <h5 class="pl-2 pb-2 border-bottom">Actions</h5> <!-- Actions Menu -->
+                <div class = "ml-2">
+                    <a href="{{ url_for('project_setup_A')}}" class="row m-1">Create New Project</a>
+                    <a href="#" class="row m-1">Create New Pipeline</a>
+                    {% if not config.LOGIN_DISABLED and admin%}
+                        <a href="{{ url_for('register_user')}}" class="row m-1">Create New User</a>
+                        <a href="{{ url_for('register_user')}}" class="row m-1">Create New User</a>
+                        <a href="{{ url_for('register_user')}}" class="row m-1">Create New User</a>
+                    {% endif %}
+                </div>
+            </aside>
+            <aside class="content-section col-md-8 ml-auto border rounded-top">
+                <h5 class="pl-2 pb-2 border-bottom">Current Projects</h5> <!-- Projects Menu -->
+                <div class="border-bottom mb-2">
+                    {% if projects %}
+                        <div class="row ml-2 border-bottom pb-0 mb-3">
+                            <p class="col-md-4 mb-0">Project ID</p>
+                            <p class="col-md-5 mb-0">Started</p>
+                            <p class="col-md-2 mb-0">Status</p>
+                        </div>
+                        {% for project, dict in projects.items() %}
+                            <div class="row ml-2">
+                                <a class="col-md-4" href="{{ url_for('project', project_id = dict.id) }}">{{ project }}</a>
+                                <p class="col-md-5">{{ dict.start }}</p>
+                                <p class="col-md-2">{{ dict.complete }}/{{ dict.total }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="mb-1">You have no current projects</p>
+                    {% endif %}
+                </div>
+                <a href="{{ url_for('archive') }}" class="row m-1">Archived Projects</a>
+            </aside>
+        </div>
+    </div>
+
+{% endblock content %}

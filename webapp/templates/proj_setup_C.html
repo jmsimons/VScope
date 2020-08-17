@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class = "container p-4 w-75">
+        <div class = "content-section mt-4">
+            <form method = "POST" action = "">
+                {{ form.hidden_tag() }}
+                <fieldset class = "form-group">
+                    <legend class = "border-bottom mb-4">New Project Settings</legend>
+                    
+                    <div class = "form-group mb-4">
+                        {{ form.processes.label(class = "form-control-label") }}
+                        <div class = "row">
+                            {{ form.processes(class = "form-control col-md-1 ml-3") }}
+                        </div>
+                    </div>
+                    
+                    <div class = "form-group mb-4">
+                        {{ form.threads.label(class = "form-control-label") }}
+                        <div class = "row">
+                            {{ form.threads(class = "form-control col-md-1 ml-3") }}
+                        </div>
+                    </div>
+                    
+                    <div class = "form-group mb-4">
+                        {{ form.time_delay.label(class = "form-control-label") }}
+                        <div class = "row">
+                            {{ form.time_delay(class = "form-control col-md-1 ml-3") }}
+                        </div>
+                    </div>
+
+                </fieldset>
+                <div class = "form-group ml-3">
+                    {{ form.csrf_token }}
+                    {{ form.submit(class = "btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock content %}

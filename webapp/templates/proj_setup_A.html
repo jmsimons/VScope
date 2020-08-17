@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class = "container p-4 w-75">
+        <div class = "content-section mt-4">
+            <form method = "POST" action = "">
+                {{ form.hidden_tag() }}
+                <fieldset class = "form-group">
+                    <legend class = "border-bottom mb-4">New Project Information</legend>
+                    
+                    <div class = "form-group row pl-4 pr-4 pb-2">
+                        {{ form.project_name.label(class = "form-control-label") }}
+                        {% if form.project_name.errors %}
+                            {{ form.project_name(class = "form-control is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.project_name.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.project_name(class = "form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class = "form-group row pl-4 pr-4 pb-2">
+                        {{ form.organism.label(class = "form-control-label") }}
+                        {% if form.organism.errors %}
+                            {{ form.organism(class = "form-control is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.organism.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.organism(class = "form-control") }}
+                        {% endif %}
+                    </div>
+
+                </fieldset>
+                <div class = "form-group ml-3">
+                    {{ form.csrf_token }}
+                    {{ form.submit(class = "btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class = "article-metadata">
+                <h3>{{ title }}</h3>
+            </div>
+            <p class = "mt-2">
+            {% for line in document %}
+                [{{ document.index(line) }}] {{ line }}<br>
+            {% endfor %}
+            </p>
+        </div>
+    </article>
+{% endblock content %}

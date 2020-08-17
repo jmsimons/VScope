@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="container p-4">
+        <div class="content-section border rounded-top">
+            <form method = "POST" action = "">
+                {{ form.hidden_tag() }}
+
+                <fieldset class = "form-group">
+                    <legend class = "border-bottom pb-2">
+                        Annotate and Report: <a href = "{{ url_for('project', project_id = project_id) }}">{{ project_id }}</a>
+                    </legend>
+                    
+                    <div class = "form-group mt-2">
+                        Run annotation on project variant-call files
+                        <div class = "row ml-2 mt-2">
+                            {{ form.annotate(class = "btn btn-outline-info") }}
+                        </div>
+                    </div>
+                    
+                    <div class = "form-group mt-3">
+                        Analyse the impact of quality threshold on variant spectrum
+                        <div class = "row ml-2 mt-2">
+                            {{ form.analyse(class = "btn btn-outline-info") }}
+                        </div>
+                    </div>
+
+                    <div class = "form-group mt-4">
+                        Produce a filtered set of variant-call files
+                        <!-- <div class = "row ml-5 mt-2">
+                            {{ form.subtract(class = "form-control col-md-1") }}{{ form.subtract.label(class = "form-control-label col-md-3 p-2") }}
+                        </div> -->
+                        <div class="row ml-5 mt-2">
+                            {{ form.quality(class = "form-control col-md-1") }}{{ form.quality.label(class = "form-control-label col-md-3 p-2") }}
+                        </div>
+                        <div class="row ml-5 mt-2">
+                            {{ form.var_type(class = "form-control col-md-1") }}{{ form.var_type.label(class = "form-control-label col-md-3 p-2") }}
+                        </div>
+                        <div class="row ml-2 mt-2">
+                            {{ form.filter(class = "btn btn-outline-info") }}
+                        </div>
+                    </div>
+                    
+                </fieldset>
+                {{ form.csrf_token }}
+            </form>            
+        </div>
+    </div>
+
+{% endblock content %}

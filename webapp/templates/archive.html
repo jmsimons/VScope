@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="container p-4">
+        <div class="content-section border rounded-top">
+            <h5 class="p-2 pr-5 border-bottom">Archived Projects</h5> <!-- Projects Menu -->
+            <div class="">
+                {% if projects %}
+                    <div class="row border-bottom pb-0 mb-3">
+                        <p class="col-md-3 mb-0">Project ID</p>
+                        <p class="col-md-5 mb-0">Started</p>
+                        <p class="col-md-3 mb-0">Status</p>
+                    </div>
+                    {% for project, dict in projects.items() %}
+                        <div class="row">
+                            <a class="col-md-3" href="{{ url_for('project', project_id = dict.id) }}">{{ project }}</a>
+                            <p class="col-md-5">{{ dict.start }}</p>
+                            <p class="col-md-3">{{ dict.status }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="mb-1">You have no archived projects</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class = "container">
+    <div class = "mt-3 mb-2">
+        <div><h2>Project: {{ project.id }}</h2></div>
+        <div class = "row">
+            <p class = "col">Complete: {{ project.complete }}/{{ project.total }}</p>
+            <p class = "col">Started: {{ project.start }}</p>
+        </div>
+        
+    </div>
+    
+    {% if not project.setup %}
+
+        <article class = "media content-section pl-4 pr-4">
+            <div class = "media-body">
+                <p>Project setup in progress, check back soon...</p>
+            </div>
+        </article>
+
+    {% else %}
+
+        {% if project.complete != project.total %}
+            <div class = "row pl-3 mb-2">
+                <form method = "POST" action = "">
+                    {{ form.hidden_tag() }}
+                    {{ form.csrf_token }}
+                    {% if not project.alive %}
+                        {{ form.start(class = "btn btn-outline-info") }}
+                    {% else %}
+                        {{ form.stop(class = "btn btn-outline-info") }}
+                    {% endif %}
+                </form>
+            </div>
+        {% endif %}
+
+        <div class = "row mb-1 pl-3">
+            Currently Running Samples:
+        </div>
+        {% for sample in processing %}
+        <article class = "media content-section pl-4 pr-4">
+            <div class = "media-body">
+                    <div class = "article-metadata row mt-1">
+                        <div class = "col"><h5><a class = "mr-3" href = "{{ url_for('sample', project_id = project['id'], sample = sample['id']) }}">{{ sample.id }}</a></h5></div>
+                        <div class = "col">Started: {{ sample.start }}</div>
+                    </div>
+                    <div class = "row">
+                        {% if sample.status == 'Running' %}
+                            <p class = "col article-content mb-1">{{ sample.cur }}</p>
+                            <p class = "col article-content mb-1">Current: {{ sample.last }}</p>
+                        {% elif sample.status == 'Halt' %}
+                            <p class = "col article-content mb-1">{{ sample.cur }}</p>
+                            <p class = "col article-content mb-1">Stopped: {{ sample.last }}</p>
+                        {% elif sample.status == 'Complete' %}
+                            <p class = "col article-content mb-1">{{ sample.cur }}</p>
+                            <p class = "col article-content mb-1">Current: {{ sample.last }}</p>
+                        {% else %}
+                            <p class = "col article-content mb-1">Status Unknown</p>
+                            <p class = "col article-content mb-1">Current: {{ sample.last }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+        {% if project.complete == project.total %}
+            <article class = "media content-section pl-4 pr-4">
+                <div class = "media-body">
+                    <p>Samples are finished processing! See 'Annotate and Report' for further actions.</p>
+                </div>
+            </article>
+        {% endif %}
+    
+    {% endif %}
+
+    <div class = "mt-3">
+        <a href = "{{ url_for('annotate_report', project_id = project['id']) }}" class = "row m-1">Annotate and Report</a>
+        <a href = "{{ url_for('file_view', project_id = project['id'], document = '{}.log'.format(project['id'])) }}"  target = "_blank" class = "row m-1">Project Log</a>
+        <a href = "{{ url_for('accession', project_id = project['id']) }}" class = "row m-1">Sample List</a>
+        <a href = "{{ url_for('archive_remove', project_id = project['id']) }}" class = "row m-1">Archive/Remove Project</a>
+    </div>
+</div>
+{% endblock %}

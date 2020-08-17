@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class = "article-metadata">
+                Sample List: <a href = "{{ url_for('project', project_id = project_id) }}">{{ project_id }}</a>
+            </div>
+            <p class = "">
+            {% for line in accession %}
+                <a href = "{{ url_for('sample', project_id = project_id, sample = line) }}">[{{ accession.index(line) + 1 }}] {{ line }}</a><br>
+            {% endfor %}
+            </p>
+        </div>
+    </article>
+{% endblock %}
