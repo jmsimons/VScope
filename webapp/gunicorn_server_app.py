@@ -1,7 +1,9 @@
 #!/usr/bin/python3.5
 
-from gunicorn import glogging, workers.sync
+import gunicorn, gunicorn.glogging, gunicorn.workers.sync
 from gunicorn.app.base import BaseApplication
+
+### Application server for built VScope distribution ###
 
 class GunicornServerApp(BaseApplication):
 

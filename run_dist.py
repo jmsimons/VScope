@@ -4,6 +4,7 @@ import os, sys, gunicorn
 from psutil import cpu_count
 import gunicorn.glogging, gunicorn.workers.sync
 from gunicorn.app.base import BaseApplication
+# from webapp.gunicorn_server_app import GunicornServerApp
 import setup
 
 
@@ -32,5 +33,5 @@ if __name__ == '__main__':
         setup.main()
     else:
         print('Webapp running with PID:', os.getpid())
-        options = {'bind': '0.0.0.0:5000', 'workers': cpu_count()}
+        options = {'bind': '0.0.0.0:5000', 'workers': 2}
         GunicornServerApp(app, options).run()
