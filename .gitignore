@@ -10,7 +10,7 @@ __pycache__
 extensions/*
 */build/
 */dist/
-*/env/
+env/*
 
 snpEff_genes.txt
 snpEff_summary.html
