@@ -29,7 +29,6 @@ def login():
     form = Login()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
-        print(user)
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember = form.remember.data)
             return redirect(url_for('home'))
@@ -196,7 +195,6 @@ def project_setup_C(project_id):
         setup_project(project)
         time.sleep(2)
         return redirect(url_for('project', project_id = project_id))
-        # return redirect(url_for('confirm_setup'))
     return render_template('proj_setup_C.html', title = 'New Project', form = form)
 
 # @app.route('/confirm_setup-<project_id>', methods = ['GET', 'POST'])
