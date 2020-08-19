@@ -2,6 +2,7 @@
 *.pyc
 ._*
 __pycache__
+*.spec
 *.conf
 *.db
 *.creds
