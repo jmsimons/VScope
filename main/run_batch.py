@@ -10,7 +10,10 @@ def main(project_path): ### Initializes batch instance and makes periodic calls 
     project_dict = load_project.dict(project_path)
     project = batch(project_dict)
     while True:
-        sleep(1)
+        try: sleep(1)
+        except:
+            print('Halt: Batch Interupted')
+            sys.exit()
         newly_complete = project.check_processing()
         if newly_complete:
             print('Newly Complete:')

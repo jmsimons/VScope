@@ -26,20 +26,25 @@ def run_project(project_path): ### Runs batch in a subprocess ###
     process = mp.Process(target = run_batch.main, args = (project_path, ))
     process.start()
 
-def stop_project(project_dict): ### Interupts project process ###
+def stop_project(project_dict): ### Interupts project processes ###
     log_lines = list_file('{}/{}.log'.format(project_dict['path'], project_dict['id']))
+    proc_list = []
     for line in log_lines[::-1]:
-        if 'Batch' in line and 'PID' in line:
-            last_PID = line.split(':')[-1].strip()
+        if 'PID' in line or 'pid' in line:
+            PID = line.split(':')[-1].strip()
             try:
-                proc = psutil.Process(int(last_PID))
+                proc_list.append(psutil.Process(int(PID)))
             except:
                 print('Cannot find process')
-                return False
-            proc.send_signal(signal.SIGINT)
-            # proc.kill()
-            return True
-    return False
+        if 'Batch' in line:
+            break
+    if not proc_list:
+        return False
+    for proc in proc_list:
+        print('SIGINT', proc)
+        proc.send_signal(signal.SIGINT)
+        # proc.kill()
+    return True
 
 def run_subtraction(project_path, quality): ### Runs subtractions on project .vcf files in a subprocess ###
     from main import subtract

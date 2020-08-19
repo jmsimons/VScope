@@ -1,5 +1,5 @@
 
-import sys, time, os, shutil, psutil, importlib, platform
+import sys, time, os, shutil, psutil
 
 def try_mkdir(dir_name):
     try:

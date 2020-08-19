@@ -106,6 +106,7 @@ def project(project_id):
         elif form.stop.data:
             if stop_project(project):
                 flash('Project Stopped', 'info')
+                time.sleep(2)
         return redirect(url_for('project', project_id = project_id))
     processing = status_list(project)
     return render_template('project.html', title = 'Project Dashboard', project = project, processing = processing, form = form)

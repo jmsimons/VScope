@@ -6,22 +6,25 @@
         </div>
         <article class = "media content-section pl-4 pr-4 mt-2">
             <div class = "media-body">
-                <div class = "article-metadata">    
-                    <h3>{{ sample.id }}</h3>
-                    Started: {{ sample.start }}
+                <div class = "article-metadata row mt-1">
+                    <div class = "col"><h5><a class = "mr-3" href = "{{ url_for('sample', project_id = project['id'], sample = sample['id']) }}">{{ sample.id }}</a></h5></div>
+                    <div class = "col">Started: {{ sample.start }}</div>
                 </div>
-                {% if 'Running' in sample.status %}
-                    <p class="mb-1">Current: {{ sample.last }}</p>
-                    <p class="mb-1">{{ sample.cur }}</p>
-                {% elif 'Halt' in sample.status %}
-                    <p class="mb-1">Current: Stopped @ {{ sample.last }}</p>
-                    <p class="mb-1">{{ sample.cur }}</p>
-                {% elif sample['status'] == 'Complete' %}
-                    <p class="mb-1">Current: Complete @ {{ sample.last }}</p>
-                    <p class="mb-1">{{ sample.cur }}</p>
-                {% else %}
-                    <p class="mb-1">Current: Unknown @ {{ sample.last }}</p>
-                {% endif %}
+                <div class = "row">
+                    {% if sample.status == 'Running' %}
+                        <p class = "col article-content mb-1">{{ sample.cur }}</p>
+                        <p class = "col article-content mb-1">Current: {{ sample.last }}</p>
+                    {% elif sample.status == 'Halt' %}
+                        <p class = "col article-content mb-1">{{ sample.cur }}</p>
+                        <p class = "col article-content mb-1">Stopped: {{ sample.last }}</p>
+                    {% elif sample.status == 'Complete' %}
+                        <p class = "col article-content mb-1">{{ sample.cur }}</p>
+                        <p class = "col article-content mb-1">Current: {{ sample.last }}</p>
+                    {% else %}
+                        <p class = "col article-content mb-1">Status Unknown</p>
+                        <p class = "col article-content mb-1">Current: {{ sample.last }}</p>
+                    {% endif %}
+                </div>
                 <h4 class = "mt-3 pt-2 border-top">View Files:</h4>
                 <ul>
                     {% for log in logs %}

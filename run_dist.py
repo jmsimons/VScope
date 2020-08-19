@@ -1,34 +1,16 @@
 #!/usr/bin/python3.5
 
-import os, sys, gunicorn
+import os, sys
 from psutil import cpu_count
-import gunicorn.glogging, gunicorn.workers.sync
-from gunicorn.app.base import BaseApplication
-# from webapp.gunicorn_server_app import GunicornServerApp
 import setup
-
-
-class GunicornServerApp(BaseApplication):
-
-    def __init__(self, app, options):
-        self.app = app
-        self.options = options
-        super().__init__()
-    
-    def load_config(self):
-        config = {k: v for k, v in self.options.items() if k in self.cfg.settings and v != None}
-        for key, value in config.items():
-            self.cfg.set(key.lower(), value)
-    
-    def load(self):
-        return self.app
 
 
 if __name__ == '__main__':
     if getattr(sys, 'frozen', False):
         os.chdir(sys._MEIPASS)
+        print(os.getcwd())
     from webapp import app
-    # from gunicorn_server_app import GunicornServerApp
+    from webapp.gunicorn_server_app import GunicornServerApp
     if 'vscope.conf' not in os.listdir():
         setup.main()
     else:

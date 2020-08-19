@@ -8,6 +8,13 @@ from flask_login import LoginManager
 from flask_mail import Mail, Message
 
 
+# Determine root dir #
+if getattr(sys, 'frozen', False):
+    root = sys._MEIPASS
+else:
+    root = None
+
+
 # Load config #
 config = {}
 try:
@@ -26,14 +33,13 @@ except:
 
 
 # Initialize Flask App #
-if getattr(sys, 'frozen', False):
-    root = sys._MEIPASS
+if not root:
+    app = Flask(__name__)
+    database_filepath = 'assets/webapp.db'
+else:
     template_folder = os.path.join(root, 'webapp', 'templates')
     app = Flask(__name__, template_folder=template_folder)
     database_filepath = os.path.join(root, 'webapp', 'assets', 'webapp.db')
-else:
-    app = Flask(__name__)
-    database_filepath = 'assets/webapp.db'
 
 app.config['SECRET_KEY'] = 'cf808b01eca1b48b52ac925de441a16c'
 if 'LOGIN_DISABLED' in config:

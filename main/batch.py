@@ -84,8 +84,8 @@ class batch: ### Data and methods for managing deployment of individual samples 
         return newly_complete
 
     def deploy(self, sample, project_dict): ## This is happening in a new process, this is where the new sample is started, calls sys.exit for subprocess when main finishes ##
-        print('{} Started with pid: {}'.format(sample, os.getpid()))
-        self.log('{} Started with pid: {}'.format(sample, os.getpid()))
+        print('{} Started with PID: {}'.format(sample, os.getpid()))
+        self.log('{} Started with PID: {}'.format(sample, os.getpid()))
         main(sample, project_dict)
         sys.exit()
 
@@ -94,7 +94,7 @@ class batch: ### Data and methods for managing deployment of individual samples 
         if time_delta >= self.delay:
             if not sample: sample = self.get_next_sample()
             process = mp.Process(target = self.deploy, args = (sample, self.proj_dict)) # Starts the new process #
-            process.daemon = True
+            process.daemon = False
             process.start()
             self.last_deploy = int(time.time())
             if sample not in self.proc_list:

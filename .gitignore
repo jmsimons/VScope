@@ -8,8 +8,8 @@ __pycache__
 *projects.txt
 */assets/*
 extensions/*
-*/build/
-*/dist/
+build/*
+dist/*
 env/*
 
 snpEff_genes.txt

@@ -27,13 +27,8 @@ def list_ext(project_path, sample, ext):
     return list
 
 def get_projects():
-    # projects_dict = {}
-    # projects = list_file('webapp/assets/active_projects.txt')
     projects = Project.query.filter_by(active = True).all()
     projects_dict = {i.name: project_dict(i.name) for i in projects}
-    # for project in projects:
-        # project = project.split('::')
-        # projects_dict[project[0]] = project_dict(project[0], project[1])
     return projects_dict
 
 def get_archive():
@@ -68,7 +63,7 @@ def project_dict(project_id):
             try:
                 proc = psutil.Process(int(last_PID))
                 print('...', proc.name())
-                if proc.name() in ('python', 'python3', 'Python', 'Python3'):
+                if proc.name() in ('VScope', 'python', 'python3', 'Python', 'Python3'):
                     alive = True
             except: pass
             break

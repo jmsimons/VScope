@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, time
 
 def zip(self, ext): ### Sets up process() to run gzip on .fastq files ###
 	for file in self.files[ext]:
@@ -21,7 +21,13 @@ def copy_reads(self): ### Creates copy of sample reads files ###
 		print('Copying reads files')
 		self.write('Copying reads files')
 		repo_path = self.proj_dict['repo']
-		for file in os.listdir(repo_path):
+		files = None
+		while not files:
+			try:
+				files = os.listdir(repo_path)
+			except:
+				time.sleep(1)
+		for file in files:
 			if self.name in file:
 				src = '{}/{}'.format(repo_path, file)
 				dst = '{}/{}'.format(self.aln_path, file)
@@ -30,7 +36,6 @@ def copy_reads(self): ### Creates copy of sample reads files ###
 					shutil.copy(src, dst)
 				except:
 					self.exit('Halt: Unable to find reads files at {}'.format(repo_path))
-		
 		self.add_file('fastq')
 		self.add_file('gz')
 

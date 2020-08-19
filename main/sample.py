@@ -83,7 +83,7 @@ class sample: ### Data and methods for managing workflow on a single sample ###
 		pipe = subprocess.PIPE
 		try: proc = subprocess.run(command, shell = True, stdout = pipe, stderr = pipe) # starts shell process, returns 0 if successful #
 		except:
-			self.exit('Halt: Process Interupted!')
+			self.exit('Halt: Sample Interupted!')
 		print('[{!r} exited with {}]'.format(command, proc.returncode))
 		self.write('[{!r} exited with {}]'.format(command, proc.returncode))
 		if proc.stdout: self.write('[stdout]\n{}'.format(proc.stdout.decode()), output_file = output_file)
