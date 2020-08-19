@@ -24,9 +24,10 @@ Begin using Variant-Scope:
     2. Open a web-browser window and enter "localhost:5000" in the address bar.
         a. To begin calling variants, use the 'Actions' menu to 'Create new project' and follow the
             setup wizard.
-        * The setup process includes indexing the reference genome and can take several minutes, this might be a good time to stretch your legs *
-        b. Once redirected to your project, click 'Run Project'. If no activity appears, try
-            refreshing the window.
+        * The setup process includes indexing the reference genome and can take several minutes, this
+            might be a good time to stretch your legs *
+        b. Once redirected to your project, click 'Run Project' in the upper right corner. If no
+            activity appears, try refreshing the window.
     
     3. From the home panel, use the 'Current Projects' pane to view your currently running projects.
     
